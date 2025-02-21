@@ -193,6 +193,55 @@ JSON-респонс о *Luke Skywalker*:
 
 Цвет глаз - **голубой**.
 
+### 11.4. Количество фильмов, в которых участвовал персонаж *Luke Skywalker*
+
+Количество фильмов узнаём из строки JSON-респонса. Ищем строку `films`, это массив URL-ов фильмов:
+
+```
+"films": [
+        "https://swapi.dev/api/films/1/",
+        "https://swapi.dev/api/films/3/",
+        "https://swapi.dev/api/films/4/",
+        "https://swapi.dev/api/films/5/",
+        "https://swapi.dev/api/films/6/"
+    ],
+```
+
+Количество фильмов - это количество элементов указанного массива. У *Luke Skywalker* 5 фильмов.
+
+### 11.5. Родной язык персонажа *Luke Skywalker*
+
+`SWAPI` не предоставляет информацию о родном языке персонажей. Эта информация отсутствует.
+
+### 11.6. Максимальную скорость в атмосфере для транспортного средства персонажа *Luke Skywalker*
+
+1. Выберем одно из транспортных средств из строки JSON-респонса:
+
+```json
+"vehicles": [
+                "https://swapi.dev/api/vehicles/14/",
+                "https://swapi.dev/api/vehicles/30/"
+            ],
+```
+
+2. Выберем *Snowspeeder* (По GET-запросу: **https://swapi.dev/api/vehicles/14/**) 
+3. Максимальную скорость в атмосфере для *Snowspeeder* узнаём из строки JSON-респонса: `"max_atmosphering_speed": "650",`
+4. Максимальная скорость в атмосфере для *Snowspeeder* - 650
+
+### 11.7. Максимальное расстояние, которое может преодолеть звездолет персонажа *Luke Skywalker*
+
+1. Выберем одно из транспортных средств из строки JSON-респонса:
+
+```json
+"starships": [
+                "https://swapi.dev/api/starships/12/",
+                "https://swapi.dev/api/starships/22/"
+            ],
+```
+
+2. Выберем *X-wing* (По GET-запросу: **https://swapi.dev/api/starships/12/**) 
+3. Максимальную скорость в атмосфере для *X-wing* узнаём из строки JSON-респонса: `"MGLT": "100",`
+4. Максимальная скорость в атмосфере для *X-wing* - 100
 
 ## 12. Родная планета персонажа *Luke Skywalker*
 
@@ -210,7 +259,7 @@ JSON-респонс о *Luke Skywalker*:
 
 JSON-респонс о *Tatooine*:
 
-```
+```json
 {
     "name": "Tatooine",
     "rotation_period": "23",
@@ -246,13 +295,135 @@ JSON-респонс о *Tatooine*:
 }
 ```
 
+### 13.1. Длительность суток (в часах) на родной планете персонажа *Luke Skywalker*
 
-## . Лицензия
+Длительность суток узнаём из строки JSON-респонса: `"rotation_period": "23",`
+
+Длительность суток на **Tatooine** - **23 часа**.
+
+### 13.2. Длительность года (в сутках) на родной планете персонажа *Luke Skywalker*
+
+Длительность года узнаём из строки JSON-респонса: `"orbital_period": "304",`
+
+Длительность года на **Tatooine** - **304 дня**.
+
+### 13.3. Тип климата на родной планете персонажа *Luke Skywalker*
+
+Тип климата узнаём из строки JSON-респонса: `"climate": "arid",`
+
+Тип климата на **Tatooine** - **arid (засушливый)**.
+
+
+## 14. Создание с помощью сниппетов по 3 теста для каждого запроса о персонаже *Luke Skywalker*
+
+### 14.1. Тесты для GET-запроса **{{base_url}}people/?search=Luke Skywalker**
+
+```javascript
+// Тест 1: Проверка статуса ответа
+pm.test("Status code is 200", () => {
+    pm.response.to.have.status(200);
+});
+
+// Тест 2: Проверка наличия имени
+pm.test("Person's name is Luke Skywalker", () => {
+    const responseData = pm.response.json();
+    pm.expect(responseData.results[0].name).to.eql("Luke Skywalker");
+});
+
+// Тест 3: Проверка типа контента
+pm.test("Content-Type is application/json", () => {
+  pm.response.to.have.header("Content-Type", "application/json");
+});
+```
+
+#### 29.1.png  <Ссылка на фото через `html` с `center`>
+
+
+### 14.2. Тесты для GET-запроса **https://swapi.dev/api/planets/1/**
+
+```javascript
+// Тест 1: Проверка статуса ответа
+pm.test("Status code is 200", () => {
+    pm.response.to.have.status(200);
+});
+
+// Тест 2: Проверка названия планеты
+pm.test("Planet's name is Tatooine", () => {
+    const responseData = pm.response.json();
+    pm.expect(responseData.name).to.eql("Tatooine");
+});
+
+// Тест 3: Проверка значения rotation_period
+pm.test("Check if rotation period is a string", () => {
+    const responseData = pm.response.json();
+    pm.expect(responseData.rotation_period).to.be.a('string');
+});
+```
+
+#### 29.2.png  <Ссылка на фото через `html` с `center`>
+
+### 14.3. Тесты для GET-запроса **https://swapi.dev/api/vehicles/14/**
+
+```javascript
+// Тест 1: Проверка статуса ответа
+pm.test("Status code is 200", () => {
+    pm.response.to.have.status(200);
+});
+
+// Тест 2: Проверка названия транспортного средства
+pm.test("Vehicle's name is X-34 landspeeder", () => {
+    const responseData = pm.response.json();
+    pm.expect(responseData.name).to.eql("X-34 landspeeder");
+});
+
+// Тест 3: Проверка значения скорости
+pm.test("Check if max_atmosphering_speed is a string", () => {
+    const responseData = pm.response.json();
+    pm.expect(responseData.max_atmosphering_speed).to.be.a('string');
+});
+```
+
+#### 29.3.png  <Ссылка на фото через `html` с `center`>
+
+### 14.4. Тесты для GET-запроса **https://swapi.dev/api/starships/12/**
+
+```javascript
+// Тест 1: Проверка статуса ответа
+pm.test("Status code is 200", () => {
+    pm.response.to.have.status(200);
+});
+
+// Тест 2: Проверка названия звездолета
+pm.test("Starship's name is X-wing", () => {
+    const responseData = pm.response.json();
+    pm.expect(responseData.name).to.eql("X-wing");
+});
+
+// Тест 3: Проверка значения MGLT
+pm.test("Check if MGLT is a string", () => {
+    const responseData = pm.response.json();
+    pm.expect(responseData.MGLT).to.be.a('string');
+});
+```
+
+#### 29.4.png  <Ссылка на фото через `html` с `center`>
+
+
+## 15. Запуск всех тестов для GET-запросов о персонаже *Luke Skywalker* 
+
+1. В коллекции `SWAPI Requests` нажмимаем на три точки (Options) и выбераем "Run Collection"
+2. Настраиваем Runner и нажмимаем "Run SWAPI Requests"
+3. Имеем результаты:
+
+#### 30.png  <Ссылка на фото через `html` с `center`>
+
+
+## 16. Лицензия
 
 Этот проект распространяется под лицензией MIT - смотрите файл [LICENSE](LICENSE) для деталей.
 
 
-## . Автор
+## 17. Автор
 
 Бедин Владислав ([MindlessMuse666](https://github.com/MindlessMuse666))
 - GitHub: [MindlessMuse666](https://github.com/MindlessMuse666 "Владислав: https://github.com/MindlessMuse666")
