@@ -450,13 +450,22 @@ pm.test("Check if MGLT is a string", () => {
   <img src="https://github.com/user-attachments/assets/1f86d388-378c-465a-9920-590be3ade8a6" alt="30">
 </p>
 
+## 16. Ответы на контрольные вопросы
 
-## 16. Лицензия
+<p align="center">
+  <img src="test-answers/LW6-1.jpg" alt="1">
+</p>
+
+<p align="center">
+  <img src="test-answers/LW6-2.jpg" alt="2-3">
+</p>
+
+## 17. Лицензия
 
 Этот проект распространяется под лицензией MIT - смотрите файл [LICENSE](LICENSE) для деталей.
 
 
-## 17. Автор
+## 18. Автор
 
 Бедин Владислав ([MindlessMuse666](https://github.com/MindlessMuse666))
 - GitHub: [MindlessMuse666](https://github.com/MindlessMuse666 "Владислав: https://github.com/MindlessMuse666")
